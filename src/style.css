@@ -34,15 +34,15 @@ body {
   color: #e2e8f0;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
-  gap: 16px;
+  padding: 16px 12px;
+  gap: 10px;
   transition: width 0.2s ease;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  padding: 8px 4px;
+  padding: 6px 4px;
   justify-content: center;
 }
 
@@ -92,9 +92,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 10px;
   background: #ffffff;
-  padding: 0 24px;
+  padding: 0 16px;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -109,7 +109,7 @@ body {
 }
 
 .tabs-bar {
-  padding: 8px 24px 0;
+  padding: 6px 16px 0;
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
 }
@@ -123,7 +123,7 @@ body {
 }
 
 .main {
-  padding: 24px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -132,14 +132,13 @@ body {
 .page {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 10px;
 }
 
 .page-title {
@@ -154,7 +153,7 @@ body {
 }
 
 .card-grid {
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .metric {
