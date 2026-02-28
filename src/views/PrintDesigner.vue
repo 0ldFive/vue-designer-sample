@@ -2,10 +2,14 @@
 import { onBeforeUnmount, onMounted, ref, inject, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import { configurePrintDesigner } from '../utils/print-settings'
+
 const designerRef = ref(null)
 const designerReady = ref(false)
 const globalState = inject('globalState')
 const { t } = useI18n()
+
+console.log('[PrintDesigner] setup')
 
 const handlePrint = async () => {
   const el = designerRef.value
@@ -20,6 +24,7 @@ const handleExport = async () => {
 }
 
 const handleReady = () => {
+  console.log('[PrintDesigner] handleReady triggered')
   const el = designerRef.value
   if (!el) return
   designerReady.value = true
@@ -35,11 +40,13 @@ const handleReady = () => {
 // 监听全局状态变化
 if (globalState) {
   watch(globalState.isDark, (val) => {
+    console.log('[PrintDesigner] watch(isDark)', val)
     const el = designerRef.value
     if (el?.setTheme) el.setTheme(val ? 'dark' : 'light')
   })
 
   watch(globalState.locale, (val) => {
+    console.log('[PrintDesigner] watch(locale)', val)
     const el = designerRef.value
     if (el?.setLanguage) {
       el.setLanguage(val === 'zh-cn' ? 'zh' : 'en')
@@ -49,12 +56,43 @@ if (globalState) {
 }
 
 onMounted(() => {
+  console.log('[PrintDesigner] onMounted')
   const el = designerRef.value
   if (!el?.addEventListener) return
   el.addEventListener('ready', handleReady)
+
+  // 确保元素定义后再配置 Mock 接口和远程模式
+  customElements.whenDefined('print-designer').then(() => {
+    console.log('[PrintDesigner] customElements.whenDefined resolved')
+    const el = designerRef.value
+    console.log('[PrintDesigner] element methods:', {
+      setCrudEndpoints: typeof el?.setCrudEndpoints,
+      setCrudMode: typeof el?.setCrudMode,
+      setBranding: typeof el?.setBranding
+    })
+
+    if (el?.setCrudEndpoints) {
+      configurePrintDesigner(el)
+    } else {
+      console.warn('[PrintDesigner] setCrudEndpoints method missing on element')
+    }
+
+    // 如果 ready 事件没有触发，尝试手动初始化
+    if (!designerReady.value) {
+      console.log('[PrintDesigner] Manual init triggered via whenDefined')
+      handleReady()
+    }
+    
+    // Test Mock API
+    fetch('/api/print/templates')
+      .then(res => res.json())
+      .then(data => console.log('[PrintDesigner] Mock API Test Result:', data))
+      .catch(err => console.error('[PrintDesigner] Mock API Test Failed:', err))
+  })
 })
 
 onBeforeUnmount(() => {
+  console.log('[PrintDesigner] onBeforeUnmount')
   const el = designerRef.value
   if (!el?.removeEventListener) return
   el.removeEventListener('ready', handleReady)
