@@ -12,7 +12,8 @@
     "@element-plus/icons-vue": "^2.3.2",
     "element-plus": "^2.13.2",
     "vue": "^3.5.25",
-    "vue-print-designer": "^0.9.75",
+    "vue-i18n": "^11.2.8",
+    "vue-print-designer": "^0.9.76",
     "vue-router": "^5.0.3"
   },
   "devDependencies": {

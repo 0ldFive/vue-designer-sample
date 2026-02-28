@@ -4,8 +4,8 @@ import PrintDesigner from '../views/PrintDesigner.vue'
 
 const routes = [
   { path: '/', redirect: '/dashboard' },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { title: '控制台' } },
-  { path: '/designer', name: 'PrintDesigner', component: PrintDesigner, meta: { title: '打印设计器' } }
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { title: 'app.dashboard' } },
+  { path: '/designer', name: 'PrintDesigner', component: PrintDesigner, meta: { title: 'app.designer' } }
 ]
 
 const router = createRouter({

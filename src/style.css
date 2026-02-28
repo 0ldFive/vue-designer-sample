@@ -98,15 +98,69 @@ body {
   border-bottom: 1px solid #e2e8f0;
 }
 
-.collapse-btn {
-  padding: 6px 8px;
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.header-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #0f172a;
+.lang-select {
+  width: 100px;
 }
+
+/* Dark Mode Styles */
+html.dark body {
+  background: #0b1121;
+  color: #e2e8f0;
+}
+
+html.dark .app-shell {
+  background: #0b1121;
+}
+
+html.dark .header,
+html.dark .tabs-bar {
+  background: #1e293b;
+  border-bottom-color: #334155;
+}
+
+html.dark .header-title {
+  color: #e2e8f0;
+}
+
+html.dark .el-dropdown-link {
+  color: #e2e8f0;
+}
+
+html.dark .page-desc {
+  color: #94a3b8;
+}
+
+html.dark .el-card {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+html.dark .metric-value {
+  color: #e2e8f0;
+}
+
+html.dark .el-table {
+  background: transparent;
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: #1e293b;
+  --el-table-row-hover-bg-color: #334155;
+  --el-table-border-color: #334155;
+  color: #e2e8f0;
+}
+
+html.dark .el-table th.el-table__cell {
+  background: #1e293b;
+}
+
 
 .tabs-bar {
   padding: 6px 16px 0;

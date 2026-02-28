@@ -1,18 +1,56 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, provide } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { EditPen, Fold, HomeFilled, Expand, Grid } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
+import { EditPen, Fold, HomeFilled, Expand, Grid, Moon, Sunny, ArrowDown } from '@element-plus/icons-vue'
+import { ElConfigProvider } from 'element-plus'
+// 导入语言包
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/es/locale/lang/en'
 
 const route = useRoute()
 const router = useRouter()
+const { t, locale } = useI18n()
+
+// 全局状态
+const isDark = ref(localStorage.getItem('theme') === 'dark')
+// locale is managed by vue-i18n
+const elementLocale = computed(() => (locale.value === 'zh-cn' ? zhCn : en))
+
+// 提供给子组件
+provide('globalState', {
+  isDark,
+  locale
+})
+
+// 监听主题变化
+watch(isDark, (val) => {
+  const theme = val ? 'dark' : 'light'
+  localStorage.setItem('theme', theme)
+  if (val) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+}, { immediate: true })
+
+// 监听语言变化
+watch(locale, (val) => {
+  localStorage.setItem('locale', val)
+})
+
+// 切换语言
+const handleCommand = (command) => {
+  locale.value = command
+}
 
 const menuItems = [
-  { path: '/dashboard', label: '控制台', icon: 'HomeFilled' },
-  { path: '/designer', label: '打印设计器', icon: 'EditPen' }
+  { path: '/dashboard', label: 'app.dashboard', icon: 'HomeFilled' },
+  { path: '/designer', label: 'app.designer', icon: 'EditPen' }
 ]
 
 const tabs = ref([
-  { path: '/dashboard', label: '控制台', icon: 'HomeFilled', closable: false }
+  { path: '/dashboard', label: 'app.dashboard', icon: 'HomeFilled', closable: false }
 ])
 const isCollapsed = ref(false)
 
@@ -62,67 +100,84 @@ watch(
 </script>
 
 <template>
-  <el-container class="app-shell">
-    <el-aside
-      :width="isCollapsed ? '64px' : '220px'"
-      class="aside"
-      :class="{ collapsed: isCollapsed }"
-    >
-      <div class="brand">
-        <el-icon v-if="isCollapsed" class="brand-icon"><Grid /></el-icon>
-        <div v-else class="brand-title">XXX SaaS平台</div>
-      </div>
-      <el-menu
-        :default-active="activeTab"
-        :collapse="isCollapsed"
-        :collapse-transition="false"
-        router
-        class="menu"
+  <el-config-provider :locale="elementLocale">
+    <el-container class="app-shell">
+      <el-aside
+        :width="isCollapsed ? '64px' : '220px'"
+        class="aside"
+        :class="{ collapsed: isCollapsed }"
       >
-        <el-menu-item index="/dashboard">
-          <el-icon><HomeFilled /></el-icon>
-          <span>控制台</span>
-        </el-menu-item>
-        <el-menu-item index="/designer">
-          <el-icon><EditPen /></el-icon>
-          <span>打印设计器</span>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
-    <el-container>
-      <el-header class="header">
-        <el-button text class="collapse-btn" @click="isCollapsed = !isCollapsed">
-          <el-icon>
-            <Fold v-if="!isCollapsed" />
-            <Expand v-else />
-          </el-icon>
-        </el-button>
-      </el-header>
-      <div class="tabs-bar">
-        <el-tabs
-          v-model="activeTab"
-          type="card"
-          closable
-          class="route-tabs"
-          @tab-remove="handleTabRemove"
+        <div class="brand">
+          <el-icon v-if="isCollapsed" class="brand-icon"><Grid /></el-icon>
+          <div v-else class="brand-title">{{ t('app.title') }}</div>
+        </div>
+        <el-menu
+          :default-active="activeTab"
+          :collapse="isCollapsed"
+          :collapse-transition="false"
+          router
+          class="menu"
         >
-          <el-tab-pane
-            v-for="tab in tabs"
-            :key="tab.path"
-            :name="tab.path"
-            :closable="tab.closable"
+          <el-menu-item index="/dashboard">
+            <el-icon><HomeFilled /></el-icon>
+            <span>{{ t('app.dashboard') }}</span>
+          </el-menu-item>
+          <el-menu-item index="/designer">
+            <el-icon><EditPen /></el-icon>
+            <span>{{ t('app.designer') }}</span>
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-container>
+        <el-header class="header">
+          <div class="header-left">
+            <el-button text class="collapse-btn" @click="isCollapsed = !isCollapsed">
+              <el-icon>
+                <Fold v-if="!isCollapsed" />
+                <Expand v-else />
+              </el-icon>
+            </el-button>
+          </div>
+          <div class="header-right">
+            <el-switch
+              v-model="isDark"
+              inline-prompt
+              :active-icon="Moon"
+              :inactive-icon="Sunny"
+              class="theme-switch"
+            />
+            <el-select v-model="locale" class="lang-select">
+              <el-option :label="t('languages.zh')" value="zh-cn" />
+              <el-option :label="t('languages.en')" value="en" />
+            </el-select>
+          </div>
+        </el-header>
+        <div class="tabs-bar">
+          <el-tabs
+            v-model="activeTab"
+            type="card"
+            closable
+            class="route-tabs"
+            @tab-remove="handleTabRemove"
           >
-            <template #label>
-              <el-icon v-if="tab.icon === 'HomeFilled'"><HomeFilled /></el-icon>
-              <el-icon v-else-if="tab.icon === 'EditPen'"><EditPen /></el-icon>
-              <span>{{ tab.label }}</span>
-            </template>
-          </el-tab-pane>
-        </el-tabs>
-      </div>
-      <el-main class="main">
-        <router-view />
-      </el-main>
+            <el-tab-pane
+              v-for="tab in tabs"
+              :key="tab.path"
+              :name="tab.path"
+              :closable="tab.closable"
+            >
+              <template #label>
+                <el-icon v-if="tab.icon === 'HomeFilled'"><HomeFilled /></el-icon>
+                <el-icon v-else-if="tab.icon === 'EditPen'"><EditPen /></el-icon>
+                <span>{{ t(tab.label) }}</span>
+              </template>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+        <el-main class="main">
+          <router-view />
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </el-config-provider>
 </template>
