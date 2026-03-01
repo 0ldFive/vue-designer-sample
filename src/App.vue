@@ -14,6 +14,7 @@ const { t, locale } = useI18n()
 
 // 全局状态
 const isDark = ref(false)
+const isCollapsed = ref(false)
 // locale is managed by vue-i18n
 const elementLocale = computed(() => (locale.value === 'zh-cn' ? zhCn : en))
 
@@ -24,6 +25,7 @@ onMounted(async () => {
     const settings = await res.json()
     isDark.value = settings.theme === 'dark'
     locale.value = settings.locale
+    isCollapsed.value = settings.isCollapsed || false
   } catch (err) {
     console.error('Failed to load settings from Mock API:', err)
   }
@@ -33,6 +35,19 @@ onMounted(async () => {
 provide('globalState', {
   isDark,
   locale
+})
+
+// 监听折叠状态变化
+watch(isCollapsed, async (val) => {
+  try {
+    await fetch('/api/print/settings', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ isCollapsed: val })
+    })
+  } catch (err) {
+    console.error('Failed to save collapsed state to Mock API:', err)
+  }
 })
 
 // 监听主题变化
@@ -84,7 +99,6 @@ const menuItems = [
 const tabs = ref([
   { path: '/dashboard', label: 'app.dashboard', icon: 'HomeFilled', closable: false }
 ])
-const isCollapsed = ref(false)
 
 const activeTab = computed({
   get: () => route.path,

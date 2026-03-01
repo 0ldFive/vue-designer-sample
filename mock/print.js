@@ -1,14 +1,39 @@
 
 import initialTemplates from './templates.json'
+import initialElements from './elements.json'
 
-let templates = [...initialTemplates]
-let customElements = []
+// 使用深拷贝初始化，避免引用污染
+let templates = JSON.parse(JSON.stringify(initialTemplates))
+let customElements = JSON.parse(JSON.stringify(initialElements))
 let userSettings = {
   theme: 'light',
-  locale: 'zh-cn'
+  locale: 'zh-cn',
+  isCollapsed: false
 }
 
-export default [
+const withLogger = (route) => {
+  return {
+    ...route,
+    response: (req) => {
+      // req 包含 { url, body, query, headers }，但不一定包含 method
+      // method 和 url 可以从 route 配置中直接获取
+      const { query, body } = req
+      const method = route.method.toUpperCase()
+      const url = route.url
+      
+      console.log(`[Mock] ${method} ${url}`, { query, body })
+      
+      // 如果原来的 response 是函数，调用它
+      if (typeof route.response === 'function') {
+        return route.response(req)
+      }
+      // 如果是静态数据，直接返回
+      return route.response
+    }
+  }
+}
+
+const routes = [
   // --- Settings ---
   {
     url: '/api/print/settings',
@@ -47,8 +72,10 @@ export default [
     response: ({ body }) => {
       const index = templates.findIndex((t) => t.id === body.id)
       if (index > -1) {
+        console.log('[Mock] Updating existing template at index:', index, 'Old ID:', templates[index].id)
         templates[index] = body
       } else {
+        console.log('[Mock] Creating new template')
         templates.push(body)
       }
       return { code: 200, message: 'success', data: body }
@@ -109,3 +136,5 @@ export default [
     },
   },
 ]
+
+export default routes.map(withLogger)

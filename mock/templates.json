@@ -1,55 +1,372 @@
 [
   {
-    "id": "a1b1f727-97d2-4522-9ff0-79af7a18c76c",
-    "name": "111 Copy Copy",
+    "id": "b8cedb0c-19ae-406b-8062-2a2ac3348e50",
+    "name": "default",
     "data": {
       "pages": [
         {
           "id": "c8a1b8bc-d2ca-4465-acd2-04a57e6b489f",
           "elements": [
             {
-              "type": "image",
-              "x": 368,
-              "y": 223,
+              "type": "text",
+              "x": 311.5340909090909,
+              "y": 49.09090909090909,
+              "width": 146.36363636363637,
+              "height": 50.909090909090914,
+              "variable": "",
+              "style": {
+                "fontSize": 32,
+                "color": "#000000",
+                "fontWeight": "700",
+                "textAlign": "center"
+              },
+              "content": "报价单",
+              "id": "699c95d2-aa65-44d0-999b-30330f10bed9"
+            },
+            {
+              "type": "barcode",
+              "x": 547.8977272727271,
+              "y": 44.54545454545454,
               "width": 200,
-              "height": 100,
+              "height": 80,
               "variable": "",
               "style": {
                 "fontSize": 14,
                 "color": "#000000"
               },
+              "content": "12345678",
+              "id": "ac0b8616-a27b-4bf3-a253-4474a626d778"
+            },
+            {
+              "type": "qrcode",
+              "x": 43.35227272727273,
+              "y": 42.72727272727272,
+              "width": 74.54545454545455,
+              "height": 66.36363636363637,
+              "variable": "",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000"
+              },
+              "content": "https://example.com",
+              "id": "39945c99-02c7-4def-9be1-0cd420159e33"
+            },
+            {
+              "type": "table",
+              "x": 41.53409090909089,
+              "y": 147.27272727272725,
+              "width": 704.5454545454545,
+              "height": 828.1818181818181,
+              "variable": "",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "headerBackgroundColor": "#f3f4f6",
+                "headerColor": "#000000",
+                "footerBackgroundColor": "#f9fafb",
+                "footerColor": "#000000"
+              },
               "content": "",
-              "id": "e54d27f2-e9d0-4dcd-9674-05734b8043d9"
+              "columns": [
+                {
+                  "field": "id",
+                  "header": "ID",
+                  "width": 50
+                },
+                {
+                  "field": "name",
+                  "header": "名称",
+                  "width": 100
+                },
+                {
+                  "field": "qty",
+                  "header": "数量",
+                  "width": 60
+                },
+                {
+                  "field": "price",
+                  "header": "单价",
+                  "width": 80
+                },
+                {
+                  "field": "total",
+                  "header": "合计",
+                  "width": 80
+                }
+              ],
+              "data": [
+                {
+                  "id": 1,
+                  "name": "商品 1",
+                  "qty": 1,
+                  "price": 100,
+                  "total": 100
+                },
+                {
+                  "id": 2,
+                  "name": "商品 2",
+                  "qty": 2,
+                  "price": 110,
+                  "total": 220
+                },
+                {
+                  "id": 3,
+                  "name": "商品 3",
+                  "qty": 3,
+                  "price": 120,
+                  "total": 360
+                },
+                {
+                  "id": 4,
+                  "name": "商品 4",
+                  "qty": 4,
+                  "price": 130,
+                  "total": 520
+                },
+                {
+                  "id": 5,
+                  "name": "商品 5",
+                  "qty": 5,
+                  "price": 140,
+                  "total": 700
+                },
+                {
+                  "id": 6,
+                  "name": "商品 6",
+                  "qty": 1,
+                  "price": 150,
+                  "total": 150
+                },
+                {
+                  "id": 7,
+                  "name": "商品 7",
+                  "qty": 2,
+                  "price": 160,
+                  "total": 320
+                },
+                {
+                  "id": 8,
+                  "name": "商品 8",
+                  "qty": 3,
+                  "price": 170,
+                  "total": 510
+                },
+                {
+                  "id": 9,
+                  "name": "商品 9",
+                  "qty": 4,
+                  "price": 180,
+                  "total": 720
+                },
+                {
+                  "id": 10,
+                  "name": "商品 10",
+                  "qty": 5,
+                  "price": 190,
+                  "total": 950
+                },
+                {
+                  "id": 11,
+                  "name": "商品 11",
+                  "qty": 1,
+                  "price": 200,
+                  "total": 200
+                },
+                {
+                  "id": 12,
+                  "name": "商品 12",
+                  "qty": 2,
+                  "price": 210,
+                  "total": 420
+                },
+                {
+                  "id": 13,
+                  "name": "商品 13",
+                  "qty": 3,
+                  "price": 220,
+                  "total": 660
+                },
+                {
+                  "id": 14,
+                  "name": "商品 14",
+                  "qty": 4,
+                  "price": 230,
+                  "total": 920
+                },
+                {
+                  "id": 15,
+                  "name": "商品 15",
+                  "qty": 5,
+                  "price": 240,
+                  "total": 1200
+                },
+                {
+                  "id": 16,
+                  "name": "商品 16",
+                  "qty": 1,
+                  "price": 250,
+                  "total": 250
+                },
+                {
+                  "id": 17,
+                  "name": "商品 17",
+                  "qty": 2,
+                  "price": 260,
+                  "total": 520
+                },
+                {
+                  "id": 18,
+                  "name": "商品 18",
+                  "qty": 3,
+                  "price": 270,
+                  "total": 810
+                },
+                {
+                  "id": 19,
+                  "name": "商品 19",
+                  "qty": 4,
+                  "price": 280,
+                  "total": 1120
+                },
+                {
+                  "id": 20,
+                  "name": "商品 20",
+                  "qty": 5,
+                  "price": 290,
+                  "total": 1450
+                },
+                {
+                  "id": 21,
+                  "name": "商品 21",
+                  "qty": 1,
+                  "price": 300,
+                  "total": 300
+                },
+                {
+                  "id": 22,
+                  "name": "商品 22",
+                  "qty": 2,
+                  "price": 310,
+                  "total": 620
+                },
+                {
+                  "id": 23,
+                  "name": "商品 23",
+                  "qty": 3,
+                  "price": 320,
+                  "total": 960
+                },
+                {
+                  "id": 24,
+                  "name": "商品 24",
+                  "qty": 4,
+                  "price": 330,
+                  "total": 1320
+                },
+                {
+                  "id": 25,
+                  "name": "商品 25",
+                  "qty": 5,
+                  "price": 340,
+                  "total": 1700
+                },
+                {
+                  "id": 26,
+                  "name": "商品 26",
+                  "qty": 1,
+                  "price": 350,
+                  "total": 350
+                },
+                {
+                  "id": 27,
+                  "name": "商品 27",
+                  "qty": 2,
+                  "price": 360,
+                  "total": 720
+                },
+                {
+                  "id": 28,
+                  "name": "商品 28",
+                  "qty": 3,
+                  "price": 370,
+                  "total": 1110
+                },
+                {
+                  "id": 29,
+                  "name": "商品 29",
+                  "qty": 4,
+                  "price": 380,
+                  "total": 1520
+                },
+                {
+                  "id": 30,
+                  "name": "商品 30",
+                  "qty": 5,
+                  "price": 390,
+                  "total": 1950
+                }
+              ],
+              "showFooter": true,
+              "tfootRepeat": true,
+              "autoPaginate": true,
+              "footerData": [
+                {
+                  "id": {
+                    "value": "本页合计"
+                  },
+                  "qty": {
+                    "value": "",
+                    "field": "{#pageQty}"
+                  },
+                  "total": {
+                    "value": "",
+                    "field": "{#pageSum}"
+                  }
+                },
+                {
+                  "id": {
+                    "value": "总计"
+                  },
+                  "qty": {
+                    "value": "",
+                    "field": "{#totalQty}"
+                  },
+                  "total": {
+                    "value": "",
+                    "field": "{#totalSum}"
+                  }
+                },
+                {
+                  "id": {
+                    "value": "大写金额"
+                  },
+                  "total": {
+                    "value": "",
+                    "field": "{#totalCap}"
+                  }
+                }
+              ],
+              "customScript": "// RMB Uppercase Conversion\ntry {\n  function digitUppercase(n) {\n      var fraction = ['角', '分'];\n      var digit = [\n          '零', '壹', '贰', '叁', '肆',\n          '伍', '陆', '柒', '捌', '玖'\n      ];\n      var unit = [\n          ['元', '万', '亿'],\n          ['', '拾', '佰', '仟']\n      ];\n      var head = n < 0 ? '欠' : '';\n      n = Math.abs(n);\n      var s = '';\n      for (var i = 0; i < fraction.length; i++) {\n          s += (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(/零./, '');\n      }\n      s = s || '整';\n      n = Math.floor(n);\n      for (var i = 0; i < unit[0].length && n > 0; i++) {\n          var p = '';\n          for (var j = 0; j < unit[1].length && n > 0; j++) {\n              p = digit[n % 10] + unit[1][j] + p;\n              n = Math.floor(n / 10);\n          }\n          s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;\n      }\n      return head + s.replace(/(零.)*零元/, '元')\n          .replace(/(零.)+/g, '零')\n          .replace(/^整$/, '零元整');\n  }\n\n  // 1. Calculate Total (works for both Global and Page data)\n  let totalAmount = 0;\n  let totalQty = 0;\n  if (data && Array.isArray(data)) {\n    data.forEach(row => {\n      // Ensure numeric values\n      const val = Number(row.total) || 0;\n      const qty = Number(row.qty) || 0;\n      totalAmount += val;\n      totalQty += qty;\n    });\n  }\n\n  // 2. Update Footer Data\n  if (footerData && Array.isArray(footerData)) {\n    footerData.forEach(row => {\n      Object.keys(row).forEach(key => {\n        const val = row[key];\n        const processValue = (v) => {\n           if (typeof v !== 'string') return v;\n           \n           // Global replacements (Grand Total)\n           if (typeof type === 'undefined' || type !== 'page') {\n               if (v.includes('{#totalSum}')) return v.replace('{#totalSum}', totalAmount.toFixed(2));\n               if (v.includes('{#totalQty}')) return v.replace('{#totalQty}', String(totalQty));\n               if (v.includes('{#totalCap}')) return v.replace('{#totalCap}', digitUppercase(totalAmount));\n               \n               // For {#pageSum}, we want to show the Grand Total in the Designer (visual feedback),\n               // but pass the original {#pageSum} token to the Print logic (via data-value).\n               if (v.includes('{#pageSum}')) {\n                   const displayVal = v.replace('{#pageSum}', totalAmount.toFixed(2));\n                   // printValue keeps {#pageSum} but resolves other globals\n                   const printVal = v.replace('{#totalSum}', totalAmount.toFixed(2))\n                                   .replace('{#totalQty}', String(totalQty))\n                                   .replace('{#totalCap}', digitUppercase(totalAmount)); \n                   \n                   return { value: displayVal, printValue: printVal };\n               }\n\n               // For {#pageQty}\n               if (v.includes('{#pageQty}')) {\n                   const displayVal = v.replace('{#pageQty}', String(totalQty));\n                   // printValue keeps {#pageQty} but resolves other globals\n                   const printVal = v.replace('{#totalSum}', totalAmount.toFixed(2))\n                                   .replace('{#totalQty}', String(totalQty))\n                                   .replace('{#totalCap}', digitUppercase(totalAmount)); \n                   \n                   return { value: displayVal, printValue: printVal };\n               }\n           }\n           \n           // Page replacements (Page Sum)\n           if (typeof type !== 'undefined' && type === 'page') {\n               if (v.includes('{#pageSum}')) return v.replace('{#pageSum}', totalAmount.toFixed(2));\n               if (v.includes('{#pageQty}')) return v.replace('{#pageQty}', String(totalQty));\n           }\n           return v;\n        };\n\n        // Handle object values\n        if (val && typeof val === 'object') {\n           // If it has a 'field' property, check if it contains a variable\n           if (val.field && typeof val.field === 'string') {\n               const processed = processValue(val.field);\n               // If processed is different from field (meaning a replacement happened)\n               // OR if processValue returned an object (for {#pageSum})\n               if (processed !== val.field || typeof processed === 'object') {\n                   if (typeof processed === 'object') {\n                       val.result = processed.value; // Store in result, keep val.value as text\n                       val.printValue = processed.printValue;\n                   } else {\n                       val.result = processed;\n                   }\n               }\n           }\n           // Also check 'value' if it was set manually and looks like a variable\n           else if (val.value && typeof val.value === 'string') {\n               // Only process if value looks like a variable, otherwise it's just text\n               if (val.value.includes('{#')) {\n                  const processed = processValue(val.value);\n                  if (typeof processed === 'object') {\n                       val.result = processed.value;\n                       val.printValue = processed.printValue;\n                   } else {\n                       val.result = processed;\n                   }\n               }\n           }\n        }\n      });\n    });\n  }\n\n  return { data, footerData };\n} catch (e) {\n  console.error('Script Execution Error:', e);\n  return { data, footerData };\n}",
+              "id": "fef0a04b-0310-4c08-9cd4-2e5f4578b7f4"
+            },
+            {
+              "type": "pageNumber",
+              "x": 373.27272727272725,
+              "y": 1037.2727272727273,
+              "width": 47.45454545454545,
+              "height": 21.818181818181817,
+              "variable": "",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "backgroundColor": "transparent",
+                "textAlign": "center"
+              },
+              "content": "",
+              "format": "1/Total",
+              "id": "aea8d99d-a9a9-4c27-bf88-99a33ca915bb"
             }
           ]
-        },
-        {
-          "id": "6e7c9de9-40a0-49bb-bf46-a7af62ef7a79",
-          "elements": []
-        },
-        {
-          "id": "95f2fd7a-7de2-4212-9234-b0e4ccdb64c7",
-          "elements": []
-        },
-        {
-          "id": "89eb2614-0f85-4a55-b8cc-78a438d15fde",
-          "elements": []
-        },
-        {
-          "id": "d48e789e-8b3a-4331-8cd1-dcdb7589efa8",
-          "elements": []
-        },
-        {
-          "id": "c2268f2a-6d58-4e35-8d69-8a4282881003",
-          "elements": []
-        },
-        {
-          "id": "5c0c8dd8-d31f-48b1-bf7b-a2c42f1b0f71",
-          "elements": []
-        },
-        {
-          "id": "e884c7c2-8763-4110-8cc5-10b7e887f278",
-          "elements": []
         }
       ],
       "canvasSize": {
@@ -61,8 +378,8 @@
       "showGrid": true,
       "headerHeight": 100,
       "footerHeight": 100,
-      "showHeaderLine": false,
-      "showFooterLine": false,
+      "showHeaderLine": true,
+      "showFooterLine": true,
       "showMinimap": true,
       "canvasBackground": "#ffffff",
       "pageSpacingX": 32,
@@ -79,114 +396,6 @@
       },
       "testData": {}
     },
-    "updatedAt": 1771772535812
-  },
-  {
-    "id": "662e9435-dd30-4c4d-ab42-7de46306bc0e",
-    "name": "111 Copy",
-    "data": {
-      "pages": [
-        {
-          "id": "c8a1b8bc-d2ca-4465-acd2-04a57e6b489f",
-          "elements": [
-            {
-              "type": "image",
-              "x": 368,
-              "y": 223,
-              "width": 200,
-              "height": 100,
-              "variable": "",
-              "style": {
-                "fontSize": 14,
-                "color": "#000000"
-              },
-              "content": "",
-              "id": "e54d27f2-e9d0-4dcd-9674-05734b8043d9"
-            }
-          ]
-        }
-      ],
-      "canvasSize": {
-        "width": 794,
-        "height": 1123
-      },
-      "guides": [],
-      "zoom": 1,
-      "showGrid": true,
-      "headerHeight": 100,
-      "footerHeight": 100,
-      "showHeaderLine": false,
-      "showFooterLine": false,
-      "showMinimap": false,
-      "canvasBackground": "#ffffff",
-      "pageSpacingX": 32,
-      "pageSpacingY": 32,
-      "unit": "mm",
-      "watermark": {
-        "enabled": false,
-        "text": "",
-        "angle": -30,
-        "color": "#000000",
-        "opacity": 0.1,
-        "size": 24,
-        "density": 160
-      },
-      "testData": {}
-    },
-    "updatedAt": 1771770323080
-  },
-  {
-    "id": "f6b150df-ebc9-413c-b297-8743deb0e4bf",
-    "name": "111",
-    "data": {
-      "pages": [
-        {
-          "id": "c8a1b8bc-d2ca-4465-acd2-04a57e6b489f",
-          "elements": [
-            {
-              "type": "image",
-              "x": 368,
-              "y": 223,
-              "width": 200,
-              "height": 100,
-              "variable": "",
-              "style": {
-                "fontSize": 14,
-                "color": "#000000"
-              },
-              "content": "",
-              "id": "e54d27f2-e9d0-4dcd-9674-05734b8043d9"
-            }
-          ]
-        }
-      ],
-      "canvasSize": {
-        "width": 794,
-        "height": 1123
-      },
-      "guides": [],
-      "zoom": 1,
-      "showGrid": true,
-      "headerHeight": 100,
-      "footerHeight": 100,
-      "showHeaderLine": false,
-      "showFooterLine": false,
-      "showMinimap": false,
-      "canvasBackground": "#ffffff",
-      "pageSpacingX": 32,
-      "pageSpacingY": 32,
-      "unit": "mm",
-      "watermark": {
-        "enabled": false,
-        "text": "",
-        "angle": -30,
-        "color": "#000000",
-        "opacity": 0.1,
-        "size": 24,
-        "density": 160
-      },
-      "testData": {}
-    },
-    "updatedAt": 1771770322068
+    "updatedAt": 1772364414462
   }
 ]
