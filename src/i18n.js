@@ -31,7 +31,7 @@ const messages = {
 
 const i18n = createI18n({
   legacy: false, // use Composition API
-  locale: localStorage.getItem('locale') || 'zh-cn',
+  locale: 'zh-cn',
   fallbackLocale: 'zh-cn',
   messages
 })

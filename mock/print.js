@@ -1,10 +1,30 @@
 
-let templates = [
-  { id: 'default', title: 'Mock 默认模板', content: '{}', type: 'template' }
-]
+import initialTemplates from './templates.json'
+
+let templates = [...initialTemplates]
 let customElements = []
+let userSettings = {
+  theme: 'light',
+  locale: 'zh-cn'
+}
 
 export default [
+  // --- Settings ---
+  {
+    url: '/api/print/settings',
+    method: 'get',
+    response: () => {
+      return userSettings
+    },
+  },
+  {
+    url: '/api/print/settings',
+    method: 'post',
+    response: ({ body }) => {
+      userSettings = { ...userSettings, ...body }
+      return { code: 200, message: 'success', data: userSettings }
+    },
+  },
   // --- Templates ---
   {
     url: '/api/print/templates',

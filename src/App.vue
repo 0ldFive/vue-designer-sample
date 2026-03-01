@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch, provide } from 'vue'
+import { computed, ref, watch, provide, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { EditPen, Fold, HomeFilled, Expand, Grid, Moon, Sunny, ArrowDown } from '@element-plus/icons-vue'
@@ -13,9 +13,21 @@ const router = useRouter()
 const { t, locale } = useI18n()
 
 // 全局状态
-const isDark = ref(localStorage.getItem('theme') === 'dark')
+const isDark = ref(false)
 // locale is managed by vue-i18n
 const elementLocale = computed(() => (locale.value === 'zh-cn' ? zhCn : en))
+
+// 获取初始配置
+onMounted(async () => {
+  try {
+    const res = await fetch('/api/print/settings')
+    const settings = await res.json()
+    isDark.value = settings.theme === 'dark'
+    locale.value = settings.locale
+  } catch (err) {
+    console.error('Failed to load settings from Mock API:', err)
+  }
+})
 
 // 提供给子组件
 provide('globalState', {
@@ -24,9 +36,20 @@ provide('globalState', {
 })
 
 // 监听主题变化
-watch(isDark, (val) => {
+watch(isDark, async (val) => {
   const theme = val ? 'dark' : 'light'
-  localStorage.setItem('theme', theme)
+  
+  // 保存到 Mock API
+  try {
+    await fetch('/api/print/settings', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ theme })
+    })
+  } catch (err) {
+    console.error('Failed to save theme to Mock API:', err)
+  }
+
   if (val) {
     document.documentElement.classList.add('dark')
   } else {
@@ -35,8 +58,17 @@ watch(isDark, (val) => {
 }, { immediate: true })
 
 // 监听语言变化
-watch(locale, (val) => {
-  localStorage.setItem('locale', val)
+watch(locale, async (val) => {
+  // 保存到 Mock API
+  try {
+    await fetch('/api/print/settings', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ locale: val })
+    })
+  } catch (err) {
+    console.error('Failed to save locale to Mock API:', err)
+  }
 })
 
 // 切换语言

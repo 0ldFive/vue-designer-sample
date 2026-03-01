@@ -271,3 +271,10 @@ html.dark .el-table th.el-table__cell {
   width: 100%;
   height: 100%;
 }
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
