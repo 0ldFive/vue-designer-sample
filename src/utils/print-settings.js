@@ -11,24 +11,23 @@ export function configurePrintDesigner(el) {
   const basePath = typeof window !== 'undefined' ? window.location.pathname : '/'
   const normalizedBasePath =
     basePath && basePath !== '/' ? basePath.replace(/\/$/, '') : ''
-  const baseUrl =
-    typeof window !== 'undefined'
-      ? `${window.location.origin}${normalizedBasePath}`
-      : ''
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : ''
+  const withBasePath = (path) =>
+    normalizedBasePath ? `${normalizedBasePath}${path}` : path
 
   if (el.setCrudEndpoints) {
     el.setCrudEndpoints({
       templates: {
-        list: '/api/print/templates',
-        get: '/api/print/templates/{id}',
-        upsert: '/api/print/templates',
-        delete: '/api/print/templates/{id}'
+        list: withBasePath('/api/print/templates'),
+        get: withBasePath('/api/print/templates/{id}'),
+        upsert: withBasePath('/api/print/templates'),
+        delete: withBasePath('/api/print/templates/{id}')
       },
       customElements: {
-        list: '/api/print/custom-elements',
-        get: '/api/print/custom-elements/{id}',
-        upsert: '/api/print/custom-elements',
-        delete: '/api/print/custom-elements/{id}'
+        list: withBasePath('/api/print/custom-elements'),
+        get: withBasePath('/api/print/custom-elements/{id}'),
+        upsert: withBasePath('/api/print/custom-elements'),
+        delete: withBasePath('/api/print/custom-elements/{id}')
       }
     }, { baseUrl })
     console.log('[PrintSettings] setCrudEndpoints called')
