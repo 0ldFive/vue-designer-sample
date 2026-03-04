@@ -1,11 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import PrintDesigner from '../views/PrintDesigner.vue'
+import BusinessForm from '../views/BusinessForm.vue'
 
 const routes = [
   { path: '/', redirect: '/dashboard' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { title: 'app.dashboard' } },
-  { path: '/designer', name: 'PrintDesigner', component: PrintDesigner, meta: { title: 'app.designer' } }
+  { path: '/designer', name: 'PrintDesigner', component: PrintDesigner, meta: { title: 'app.designer' } },
+  { path: '/business-form', name: 'BusinessForm', component: BusinessForm, meta: { title: 'app.businessForm' } }
 ]
 
 const router = createRouter({

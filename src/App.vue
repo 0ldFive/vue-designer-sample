@@ -2,7 +2,7 @@
 import { computed, ref, watch, provide, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { EditPen, Fold, HomeFilled, Expand, Grid, Moon, Sunny, ArrowDown } from '@element-plus/icons-vue'
+import { EditPen, Fold, HomeFilled, Expand, Grid, Moon, Sunny, Document } from '@element-plus/icons-vue'
 import { ElConfigProvider } from 'element-plus'
 // 导入语言包
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
@@ -93,7 +93,8 @@ const handleCommand = (command) => {
 
 const menuItems = [
   { path: '/dashboard', label: 'app.dashboard', icon: 'HomeFilled' },
-  { path: '/designer', label: 'app.designer', icon: 'EditPen' }
+  { path: '/designer', label: 'app.designer', icon: 'EditPen' },
+  { path: '/business-form', label: 'app.businessForm', icon: 'Document' }
 ]
 
 const tabs = ref([
@@ -172,6 +173,10 @@ watch(
             <el-icon><EditPen /></el-icon>
             <span>{{ t('app.designer') }}</span>
           </el-menu-item>
+          <el-menu-item index="/business-form">
+            <el-icon><Document /></el-icon>
+            <span>{{ t('app.businessForm') }}</span>
+          </el-menu-item>
         </el-menu>
       </el-aside>
       <el-container>
@@ -215,6 +220,7 @@ watch(
               <template #label>
                 <el-icon v-if="tab.icon === 'HomeFilled'"><HomeFilled /></el-icon>
                 <el-icon v-else-if="tab.icon === 'EditPen'"><EditPen /></el-icon>
+                <el-icon v-else-if="tab.icon === 'Document'"><Document /></el-icon>
                 <span>{{ t(tab.label) }}</span>
               </template>
             </el-tab-pane>

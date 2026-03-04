@@ -9,8 +9,8 @@
           "elements": [
             {
               "type": "text",
-              "x": 311.5340909090909,
-              "y": 49.09090909090909,
+              "x": 308.67694805194805,
+              "y": 41.66233766233767,
               "width": 146.36363636363637,
               "height": 50.909090909090914,
               "variable": "",
@@ -18,35 +18,39 @@
                 "fontSize": 32,
                 "color": "#000000",
                 "fontWeight": "700",
-                "textAlign": "center"
+                "textAlign": "center",
+                "zIndex": 50
               },
               "content": "报价单",
               "id": "699c95d2-aa65-44d0-999b-30330f10bed9"
             },
             {
               "type": "barcode",
-              "x": 547.8977272727271,
-              "y": 44.54545454545454,
-              "width": 200,
-              "height": 80,
+              "x": 600.5714285714286,
+              "y": 55.14285714285714,
+              "width": 152.85714285714286,
+              "height": 32.85714285714287,
               "variable": "",
               "style": {
                 "fontSize": 14,
-                "color": "#000000"
+                "color": "#000000",
+                "zIndex": 48,
+                "showText": false
               },
               "content": "12345678",
               "id": "ac0b8616-a27b-4bf3-a253-4474a626d778"
             },
             {
               "type": "qrcode",
-              "x": 43.35227272727273,
-              "y": 42.72727272727272,
-              "width": 74.54545454545455,
-              "height": 66.36363636363637,
+              "x": 42.06655844155844,
+              "y": 39.87012987012986,
+              "width": 68.11688311688313,
+              "height": 57.792207792207805,
               "variable": "",
               "style": {
                 "fontSize": 14,
-                "color": "#000000"
+                "color": "#000000",
+                "zIndex": 37
               },
               "content": "https://example.com",
               "id": "39945c99-02c7-4def-9be1-0cd420159e33"
@@ -64,7 +68,8 @@
                 "headerBackgroundColor": "#f3f4f6",
                 "headerColor": "#000000",
                 "footerBackgroundColor": "#f9fafb",
-                "footerColor": "#000000"
+                "footerColor": "#000000",
+                "zIndex": 26
               },
               "content": "",
               "columns": [
@@ -352,7 +357,7 @@
             {
               "type": "pageNumber",
               "x": 373.27272727272725,
-              "y": 1037.2727272727273,
+              "y": 1053.2727272727273,
               "width": 47.45454545454545,
               "height": 21.818181818181817,
               "variable": "",
@@ -360,11 +365,118 @@
                 "fontSize": 14,
                 "color": "#000000",
                 "backgroundColor": "transparent",
-                "textAlign": "center"
+                "textAlign": "center",
+                "zIndex": 8
               },
               "content": "",
               "format": "1/Total",
               "id": "aea8d99d-a9a9-4c27-bf88-99a33ca915bb"
+            },
+            {
+              "type": "text",
+              "x": 40.14285714285715,
+              "y": 1011.9999999999999,
+              "width": 74,
+              "height": 22,
+              "variable": "",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 22
+              },
+              "content": "联系人:",
+              "id": "b4f31b92-5b81-49f6-89e4-38631f3eeb1b"
+            },
+            {
+              "type": "text",
+              "x": 91.5691964285714,
+              "y": 1013.7142857142856,
+              "width": 142.86,
+              "height": 21.43,
+              "variable": "@contact",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 23
+              },
+              "content": "",
+              "id": "9c8d6134-f250-43ea-8183-fba865bc1b6d"
+            },
+            {
+              "type": "text",
+              "x": 40.42633928571422,
+              "y": 997.1428571428569,
+              "width": 74,
+              "height": 22,
+              "variable": "",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 16
+              },
+              "content": "客     户:",
+              "id": "a5b0358b-71a1-487f-880a-59f96c13e659"
+            },
+            {
+              "type": "text",
+              "x": 91.99553571428561,
+              "y": 997.4285714285711,
+              "width": 142.85714285714286,
+              "height": 21.42857142857145,
+              "variable": "@customer",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 17
+              },
+              "content": "",
+              "id": "871d577e-6eb7-4d62-b141-222381e08c1d"
+            },
+            {
+              "type": "text",
+              "x": 47.852678571428555,
+              "y": 103.14285714285703,
+              "width": 142.85714285714286,
+              "height": 21.42857142857145,
+              "variable": "@orderNo",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 52
+              },
+              "content": "",
+              "id": "329932cb-2827-4364-a4a3-c6f281ac2f61"
+            },
+            {
+              "type": "text",
+              "x": 616.9263392857142,
+              "y": 92.71428571428567,
+              "width": 120.00000000000003,
+              "height": 22.857142857142875,
+              "variable": "@orderTime",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 53,
+                "textAlign": "center"
+              },
+              "content": "",
+              "id": "5ba9f2c6-fff4-4178-8bf2-26ad6a02cd01"
+            },
+            {
+              "type": "text",
+              "x": 473.78348214285705,
+              "y": 1000.2857142857142,
+              "width": 280.71428571428567,
+              "height": 72.85714285714286,
+              "variable": "@remarks",
+              "style": {
+                "fontSize": 14,
+                "color": "#000000",
+                "zIndex": 51
+              },
+              "content": "新文本",
+              "id": "cd62074d-7f82-4736-917a-f8ae975be06a"
             }
           ]
         }
@@ -376,7 +488,7 @@
       "guides": [],
       "zoom": 1,
       "showGrid": true,
-      "headerHeight": 100,
+      "headerHeight": 102,
       "footerHeight": 100,
       "showHeaderLine": true,
       "showFooterLine": true,
@@ -393,9 +505,8 @@
         "opacity": 0.1,
         "size": 24,
         "density": 160
-      },
-      "testData": {}
+      }
     },
-    "updatedAt": 1772364414462
+    "updatedAt": 1772611416073
   }
 ]

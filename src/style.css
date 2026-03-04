@@ -195,7 +195,8 @@ html.dark .el-table th.el-table__cell {
   gap: 10px;
 }
 
-.page-title {
+.page-title,
+.print-debug-block-title{
   margin: 0;
   font-size: 24px;
 }
@@ -270,6 +271,86 @@ html.dark .el-table th.el-table__cell {
 .designer-element {
   width: 100%;
   height: 100%;
+}
+
+.business-form-page {
+  gap: 12px;
+}
+
+.business-form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.business-debug-log-card {
+  margin-top: 12px;
+}
+
+.business-form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.silent-print-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 4px;
+  color: #475569;
+  font-size: 13px;
+}
+
+.business-form {
+  margin-top: 12px;
+}
+
+.business-debug-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.print-debug-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.print-debug-desc {
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.print-debug-form .el-select,
+.print-debug-form .el-input,
+.print-debug-form .el-input-number {
+  width: 100%;
+}
+
+
+
+.business-form-table {
+  margin-top: 8px;
+}
+
+.business-print-host {
+  position: fixed;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.business-hidden-designer {
+  width: 1px;
+  height: 1px;
 }
 
 :host {
