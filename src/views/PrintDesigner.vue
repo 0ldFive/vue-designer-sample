@@ -84,7 +84,7 @@ onMounted(() => {
     }
     
     // Test Mock API
-    fetch('/api/print/templates')
+    fetch('api/print/templates')
       .then(res => res.json())
       .then(data => console.log('[PrintDesigner] Mock API Test Result:', data))
       .catch(err => console.error('[PrintDesigner] Mock API Test Failed:', err))

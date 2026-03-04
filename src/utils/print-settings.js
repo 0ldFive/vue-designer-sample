@@ -8,7 +8,14 @@ export function configurePrintDesigner(el) {
 
   console.log('[PrintSettings] Configuring designer instance...')
 
-  // 配置 Mock 接口
+  const basePath = typeof window !== 'undefined' ? window.location.pathname : '/'
+  const normalizedBasePath =
+    basePath && basePath !== '/' ? basePath.replace(/\/$/, '') : ''
+  const baseUrl =
+    typeof window !== 'undefined'
+      ? `${window.location.origin}${normalizedBasePath}`
+      : ''
+
   if (el.setCrudEndpoints) {
     el.setCrudEndpoints({
       templates: {
@@ -23,7 +30,7 @@ export function configurePrintDesigner(el) {
         upsert: '/api/print/custom-elements',
         delete: '/api/print/custom-elements/{id}'
       }
-    }, { baseUrl: '' })
+    }, { baseUrl })
     console.log('[PrintSettings] setCrudEndpoints called')
   }
 
