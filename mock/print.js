@@ -138,9 +138,3 @@ const routes = [
 ]
 
 export default routes.map(withLogger)
-
-import { createProdMockServer } from 'vite-plugin-mock/es/createProdMockServer'
-
-export function setupProdMockServer() {
-  createProdMockServer(routes)
-}
