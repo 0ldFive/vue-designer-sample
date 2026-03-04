@@ -248,7 +248,7 @@ const applyVariables = () => {
 const initTemplate = async () => {
   const el = designerRef.value
   if (!el?.loadTemplateData) return
-  const res = await fetch('/api/print/templates')
+  const res = await fetch(`${import.meta.env.BASE_URL}api/print/templates`)
   const templates = await res.json()
   if (!Array.isArray(templates) || templates.length === 0) {
     ElMessage.error(t('app.templateEmpty'))

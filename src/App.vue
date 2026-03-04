@@ -21,7 +21,7 @@ const elementLocale = computed(() => (locale.value === 'zh-cn' ? zhCn : en))
 // 获取初始配置
 onMounted(async () => {
   try {
-    const res = await fetch('/api/print/settings')
+    const res = await fetch(`${import.meta.env.BASE_URL}api/print/settings`)
     const settings = await res.json()
     isDark.value = settings.theme === 'dark'
     locale.value = settings.locale
@@ -40,7 +40,7 @@ provide('globalState', {
 // 监听折叠状态变化
 watch(isCollapsed, async (val) => {
   try {
-    await fetch('/api/print/settings', {
+    await fetch(`${import.meta.env.BASE_URL}api/print/settings`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ isCollapsed: val })
@@ -56,7 +56,7 @@ watch(isDark, async (val) => {
   
   // 保存到 Mock API
   try {
-    await fetch('/api/print/settings', {
+    await fetch(`${import.meta.env.BASE_URL}api/print/settings`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ theme })
@@ -76,7 +76,7 @@ watch(isDark, async (val) => {
 watch(locale, async (val) => {
   // 保存到 Mock API
   try {
-    await fetch('/api/print/settings', {
+    await fetch(`${import.meta.env.BASE_URL}api/print/settings`, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ locale: val })
