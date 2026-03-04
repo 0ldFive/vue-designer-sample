@@ -21,6 +21,7 @@ This project demonstrates how to integrate the print designer into a **Vue 3 + E
 3. **Router Integration**: Using the designer within Vue Router.
 4. **Business Page Printing**: Invoke print and export functions directly from non-designer pages (e.g. form pages), demonstrating variable injection.
 5. **Print Debugging**: Visual print parameter debugging panel, supporting local/remote print mode switching and printer options adjustment.
+6. **Mock Data Support**: The demo project uses Mock.js to simulate backend APIs, implementing CRUD operations for templates and custom elements, allowing you to experience the full workflow without a real backend.
 
 ### Quick Start
 
