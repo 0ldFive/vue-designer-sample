@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 监听 main 分支的 push
+    paths:
+      - 'package.json' # 只有 package.json 变动时才可能触发
+
+permissions:
+  contents: write
+
+jobs:
+  check-version-and-deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.check.outputs.changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # 需要拉取前一个 commit 来做对比
+
+      - name: Check version change
+        id: check
+        run: |
+          # 提取当前 commit 的版本号
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          
+          # 提取上一个 commit 的版本号（如果存在）
+          # git show HEAD^:package.json 可能会失败（例如这是第一个 commit），需要容错
+          if git cat-file -e HEAD^:package.json 2>/dev/null; then
+            PREV_VERSION=$(git show HEAD^:package.json | node -p "JSON.parse(require('fs').readFileSync(0)).version")
+          else
+            PREV_VERSION="0.0.0"
+          fi
+
+          echo "Current version: $CURRENT_VERSION"
+          echo "Previous version: $PREV_VERSION"
+
+          if [ "$CURRENT_VERSION" != "$PREV_VERSION" ]; then
+            echo "Version changed from $PREV_VERSION to $CURRENT_VERSION. Proceeding with deploy."
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version unchanged. Skipping deploy."
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+  build-and-deploy:
+    needs: check-version-and-deploy
+    if: needs.check-version-and-deploy.outputs.should_deploy == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
