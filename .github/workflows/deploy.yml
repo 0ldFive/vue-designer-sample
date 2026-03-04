@@ -8,10 +8,16 @@ on:
       - 'package.json' # 只有 package.json 变动时才可能触发
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  check-version-and-deploy:
+  check-version:
     runs-on: ubuntu-latest
     outputs:
       should_deploy: ${{ steps.check.outputs.changed }}
@@ -46,9 +52,9 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
 
-  build-and-deploy:
-    needs: check-version-and-deploy
-    if: needs.check-version-and-deploy.outputs.should_deploy == 'true'
+  build:
+    needs: check-version
+    if: needs.check-version.outputs.should_deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -66,8 +72,18 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist
-          branch: gh-pages
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
