@@ -17,6 +17,11 @@ export default defineConfig({
       mockPath: 'mock',
       enable: true,
       localEnabled: true, // 兼容旧版本配置
+      prodEnabled: true, // 开启生产环境 Mock
+      injectCode: `
+        import { setupProdMockServer } from './mock/print.js';
+        setupProdMockServer();
+      `,
       logger: true, // 开启日志
     })
   ]
