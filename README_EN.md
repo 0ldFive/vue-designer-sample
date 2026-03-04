@@ -9,15 +9,8 @@ This project demonstrates how to integrate the print designer into a **Vue 3 + E
 - **Theme Switching**: Supports Dark/Light mode switching, with the designer adapting automatically.
 - **Internationalization (i18n)**: Supports Chinese/English switching, with the designer language adapting automatically.
 - **Router Integration**: Using the designer within Vue Router.
-
-### Roadmap
-
-This project will be continuously updated to demonstrate more advanced features:
-
-- [ ] **Business Page Printing**: Invoking print functions from non-designer pages.
-- [ ] **Template Management**: Implementing Template CRUD operations.
-- [ ] **Custom Element Management**: Implementing Custom Element CRUD operations.
-- [ ] **More Advanced Usage**: Demonstrating scenarios like silent printing and cloud printing.
+- **Business Page Printing**: Invoke print and export functions directly from non-designer pages (e.g. form pages), demonstrating variable injection.
+- **Print Debugging**: Visual print parameter debugging panel, supporting local/remote print mode switching and printer options adjustment.
 
 ### Quick Start
 
