@@ -3,7 +3,10 @@ import mockRoutes from '../mock/print.js'
 
 export function setupProdMockServer() {
   const basePath = window.location.pathname && window.location.pathname !== '/' ? window.location.pathname.replace(/\/$/, '') : ''
-  const effectiveRoutes = basePath ? mockRoutes.map((route) => ({ ...route, url: `${basePath}${route.url}` })) : mockRoutes
+  const prefixedRoutes = basePath ? mockRoutes.map((route) => ({ ...route, url: `${basePath}${route.url}` })) : []
+  const mergedRoutes = [...mockRoutes, ...prefixedRoutes]
+  const routeKey = (route) => `${String(route.method || 'get').toUpperCase()} ${route.url}`
+  const effectiveRoutes = Array.from(new Map(mergedRoutes.map((route) => [routeKey(route), route])).values())
 
   createProdMockServer(effectiveRoutes)
 
