@@ -555,13 +555,17 @@ const handleGetCloudPrinterList = async () => {
     return
   }
   const request = buildPrintRequest()
-  const clientId = selectedRemoteClientId.value || ''
+  const input = window.prompt(t('app.enterCloudClientId'), selectedRemoteClientId.value || '')
+  if (input === null) {
+    return
+  }
+  const clientId = input.trim()
   if (!clientId) {
     appendPrintDebugLog(`${t('app.getCloudPrinterList')}-error`, {
       request,
-      message: t('app.selectCloudClientFirst')
+      message: t('app.cloudClientIdRequired')
     })
-    ElMessage.warning(t('app.selectCloudClientFirst'))
+    ElMessage.warning(t('app.cloudClientIdRequired'))
     return
   }
   appendPrintDebugLog(`${t('app.getCloudPrinterList')}-request`, {
@@ -1060,7 +1064,7 @@ onBeforeUnmount(() => {
   <el-dialog
     v-model="printDebugVisible"
     :title="t('app.printDebugTitle')"
-    width="50%"
+    width="30%"
     destroy-on-close
   >
     <el-form label-width="110px" class="print-debug-form">
