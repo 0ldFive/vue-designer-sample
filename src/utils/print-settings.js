@@ -1,6 +1,7 @@
 
 /**
  * 配置打印设计器实例
+ * 调用 setCrudEndpoints 配置增删改查接口，调用 setCrudMode 启用远程模式
  * @param {HTMLElement} el 打印设计器元素实例
  */
 export function configurePrintDesigner(el) {

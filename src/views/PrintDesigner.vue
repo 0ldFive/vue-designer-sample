@@ -11,18 +11,30 @@ const { t } = useI18n()
 
 console.log('[PrintDesigner] setup')
 
+/**
+ * 执行打印
+ * 调用 design.print 方法，使用浏览器默认打印模式
+ */
 const handlePrint = async () => {
   const el = designerRef.value
   if (!el?.print) return
   await el.print({ mode: 'browser' })
 }
 
+/**
+ * 导出 PDF
+ * 调用 design.export 方法导出 PDF 文件
+ */
 const handleExport = async () => {
   const el = designerRef.value
   if (!el?.export) return
   await el.export({ type: 'pdf', filename: 'template.pdf' })
 }
 
+/**
+ * 设计器就绪处理
+ * 初始化品牌信息、主题和语言设置
+ */
 const handleReady = () => {
   console.log('[PrintDesigner] handleReady triggered')
   const el = designerRef.value

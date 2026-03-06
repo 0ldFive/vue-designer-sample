@@ -290,21 +290,61 @@ html.dark .el-table th.el-table__cell {
 .business-form-actions {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
+  flex-wrap: nowrap;
+  column-gap: 0;
+  row-gap: 0;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.business-form-actions-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: flex-start;
+  min-width: 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.business-form-actions-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding-left: 12px;
+  border-left: 1px solid var(--el-border-color);
+  flex-shrink: 0;
 }
 
 .silent-print-inline {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-right: 4px;
+  gap: 6px;
+  margin-right: 2px;
   color: #475569;
   font-size: 13px;
 }
 
+.print-params-btn {
+  background: #dbeafe;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.print-params-btn:hover {
+  background: #bfdbfe;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
 .business-form {
   margin-top: 12px;
+}
+
+.business-form-page .page-header {
+  justify-content: flex-start;
 }
 
 .business-debug-log-header {
@@ -339,6 +379,15 @@ html.dark .el-table th.el-table__cell {
   margin-top: 8px;
 }
 
+.business-table-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.business-form-table .el-input-number {
+  width: 100%;
+}
+
 .business-print-host {
   position: fixed;
   left: -9999px;
@@ -346,6 +395,10 @@ html.dark .el-table th.el-table__cell {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+.el-button+.el-button{
+  margin-left: 0;
 }
 
 .business-hidden-designer {
