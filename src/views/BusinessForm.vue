@@ -479,16 +479,19 @@ const handleGetPrinterCaps = async () => {
     ElMessage.warning(t('app.methodUnavailable'))
     return
   }
-  const request = buildPrintRequest()
-  const printer = request?.options?.printer || ''
-  if (!printer) {
-    appendPrintDebugLog(`${t('app.getPrinterCaps')}-error`, {
-      request,
-      message: t('app.selectPrinterFirst')
-    })
-    ElMessage.warning(t('app.selectPrinterFirst'))
+  const input = window.prompt(t('app.enterPrinterName'), printDebugModel.value.options.printer || '')
+  if (input === null) {
     return
   }
+  const printer = input.trim()
+  if (!printer) {
+    appendPrintDebugLog(`${t('app.getPrinterCaps')}-error`, {
+      message: t('app.printerNameRequired')
+    })
+    ElMessage.warning(t('app.printerNameRequired'))
+    return
+  }
+  const request = buildPrintRequest()
   appendPrintDebugLog(`${t('app.getPrinterCaps')}-request`, {
     method: 'fetchLocalPrinterCaps',
     printer,
