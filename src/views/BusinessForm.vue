@@ -147,22 +147,91 @@ const resolveOptionValue = (item, keys, fallback) => {
   return fallback
 }
 
+const readOptionPathValue = (item, path) => {
+  if (!item || typeof item !== 'object') return ''
+  const segments = String(path).split('.')
+  let current = item
+  for (const segment of segments) {
+    if (!current || typeof current !== 'object' || !(segment in current)) {
+      return ''
+    }
+    current = current[segment]
+  }
+  if (typeof current === 'string' || typeof current === 'number') {
+    return String(current).trim()
+  }
+  return ''
+}
+
+const resolveOptionCandidates = (item, keys) => {
+  if (typeof item === 'string' || typeof item === 'number') {
+    return [String(item)]
+  }
+  if (!item || typeof item !== 'object') {
+    return []
+  }
+  const values = keys
+    .map((key) => readOptionPathValue(item, key))
+    .filter((value) => value !== '')
+  return Array.from(new Set(values))
+}
+
+const isLikelyClientId = (value) => /^client-\d+$/i.test(value) || /^[0-9a-f]{16,}$/i.test(value)
+
+const pickRemoteClientLabel = (candidates, fallback) => {
+  const preferred = candidates.find((value) => !isLikelyClientId(value))
+  return preferred || candidates[0] || fallback || ''
+}
+
 const localPrinterOptions = computed(() =>
   localPrinters.value
     .map((item, index) => {
       const value = resolveOptionValue(item, ['printer', 'name', 'printerName', 'id'], `local-${index}`)
       const label = resolveOptionValue(item, ['name', 'printer', 'printerName', 'id'], value)
-      return { value, label }
+      return { value, label: label || value }
     })
     .filter((item) => item.value)
 )
 
 const remoteClientOptions = computed(() =>
   remoteClients.value
-    .map((item, index) => {
-      const value = resolveOptionValue(item, ['clientId', 'id', 'name'], `client-${index}`)
-      const label = resolveOptionValue(item, ['name', 'clientName', 'clientId', 'id'], value)
-      return { value, label }
+    .map((item) => {
+      const valueCandidates = resolveOptionCandidates(item, [
+        'client_id',
+        'clientId',
+        'id',
+        'value',
+        'key',
+        'uuid',
+        'uid',
+        'client',
+        'client.id',
+        'client.clientId',
+        'client.value'
+      ])
+      const labelCandidates = resolveOptionCandidates(item, [
+        'client_name',
+        'name',
+        'clientName',
+        'displayName',
+        'alias',
+        'hostName',
+        'hostname',
+        'machineName',
+        'title',
+        'label',
+        'client.name',
+        'client.clientName',
+        'client.displayName',
+        'client.hostName',
+        'client.hostname',
+        'client.machineName',
+        'client'
+      ])
+      const value = valueCandidates[0] || labelCandidates[0] || ''
+      const label = pickRemoteClientLabel(labelCandidates, value)
+      const candidates = Array.from(new Set([value, ...valueCandidates, ...labelCandidates].filter(Boolean)))
+      return { value, label, candidates }
     })
     .filter((item) => item.value)
 )
@@ -170,8 +239,8 @@ const remoteClientOptions = computed(() =>
 const remotePrinterOptions = computed(() =>
   remotePrinters.value
     .map((item, index) => {
-      const value = resolveOptionValue(item, ['printer', 'name', 'printerName', 'id'], `remote-${index}`)
-      const label = resolveOptionValue(item, ['name', 'printer', 'printerName', 'id'], value)
+      const value = resolveOptionValue(item, ['printer_name', 'printer', 'name', 'printerName', 'id'], `remote-${index}`)
+      const label = resolveOptionValue(item, ['printer_name', 'name', 'printer', 'printerName', 'id'], value)
       return { value, label }
     })
     .filter((item) => item.value)
@@ -414,11 +483,12 @@ const fetchRemoteClientsForDebug = async () => {
     return null
   }
   const data = await el.fetchRemoteClients()
-  remoteClients.value = Array.isArray(data) ? data : []
+  const clients = Array.isArray(data) ? data : Array.isArray(data?.clients) ? data.clients : []
+  remoteClients.value = clients
   if (!remoteClientOptions.value.some((item) => item.value === selectedRemoteClientId.value)) {
     selectedRemoteClientId.value = remoteClientOptions.value[0]?.value || ''
   }
-  return data
+  return clients
 }
 
 /**
@@ -430,10 +500,36 @@ const fetchRemotePrintersForDebug = async () => {
   if (typeof el?.fetchRemotePrinters !== 'function') {
     return null
   }
-  const data = await el.fetchRemotePrinters(selectedRemoteClientId.value || undefined)
-  remotePrinters.value = Array.isArray(data) ? data : []
+  const selectedOption = remoteClientOptions.value.find((item) => item.value === selectedRemoteClientId.value)
+  const clientCandidates = Array.from(
+    new Set([selectedRemoteClientId.value, ...(selectedOption?.candidates || [])].filter(Boolean))
+  )
+  let printers = []
+  if (clientCandidates.length === 0) {
+    const data = await el.fetchRemotePrinters()
+    printers = Array.isArray(data) ? data : Array.isArray(data?.printers) ? data.printers : []
+  } else {
+    for (const clientId of clientCandidates) {
+      const data = await el.fetchRemotePrinters(clientId)
+      const list = Array.isArray(data) ? data : Array.isArray(data?.printers) ? data.printers : []
+      printers = list
+      if (list.length > 0) {
+        break
+      }
+    }
+  }
+  remotePrinters.value = printers
   syncSelectedPrinter()
-  return data
+  return printers
+}
+
+const handleRemoteClientSelection = async () => {
+  if (!printDebugVisible.value || printDebugModel.value.mode !== 'remote') return
+  try {
+    await fetchRemotePrintersForDebug()
+  } catch (error) {
+    appendPrintDebugLog(`${t('app.getCloudClientInfo')}-error`, { message: error?.message || String(error) })
+  }
 }
 
 /**
@@ -1085,7 +1181,7 @@ onBeforeUnmount(() => {
         </el-col>
         <el-col v-if="printDebugModel.mode === 'remote'" :span="12">
           <el-form-item :label="t('app.cloudClient')">
-            <el-select v-model="selectedRemoteClientId" clearable>
+            <el-select v-model="selectedRemoteClientId" clearable @change="handleRemoteClientSelection">
               <el-option
                 v-for="item in remoteClientOptions"
                 :key="item.value"
