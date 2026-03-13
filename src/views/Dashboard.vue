@@ -30,6 +30,22 @@ const closeImageViewer = () => {
 
 <template>
   <div class="page">
+    <!-- Project Badges -->
+    <div class="project-badges">
+      <a href="https://gitee.com/theGreatOldFive/vue-print-designer" target="_blank" class="badge-link">
+        <img src="https://gitee.com/theGreatOldFive/vue-print-designer/badge/star.svg?theme=white" alt="Gitee Stars" />
+      </a>
+      <a href="https://github.com/0ldFive/Vue-Print-Designer" target="_blank" class="badge-link">
+        <img src="https://img.shields.io/github/stars/0ldFive/Vue-Print-Designer?style=social" alt="GitHub Stars" />
+      </a>
+      <a href="https://www.npmjs.com/package/vue-print-designer" target="_blank" class="badge-link">
+        <img src="https://img.shields.io/npm/v/vue-print-designer?style=flat-square&color=CB3837" alt="NPM Version" />
+      </a>
+      <a href="https://www.npmjs.com/package/vue-print-designer" target="_blank" class="badge-link">
+        <img src="https://img.shields.io/npm/dm/vue-print-designer?style=flat-square&color=CB3837" alt="NPM Downloads" />
+      </a>
+    </div>
+
     <div class="page-header"></div>
 
     <el-card shadow="hover" class="guide-container">
@@ -89,6 +105,19 @@ const closeImageViewer = () => {
           <div class="guide-body web-row">
             <el-link type="primary" href="https://printdot.cc" target="_blank" class="web-link">
               https://printdot.cc <el-icon><TopRight /></el-icon>
+            </el-link>
+          </div>
+        </div>
+
+        <!-- Item 4: Cloud Print -->
+        <div class="guide-item">
+          <div class="guide-header">
+            <span class="step-num">4.</span>
+            <span class="step-title">云打印</span>
+          </div>
+          <div class="guide-body web-row">
+            <el-link type="primary" href="https://printdot.cc/cloud-print" target="_blank" class="web-link">
+              https://printdot.cc/cloud-print <el-icon><TopRight /></el-icon>
             </el-link>
           </div>
         </div>
@@ -152,6 +181,36 @@ const closeImageViewer = () => {
 </template>
 
 <style scoped>
+.page {
+  padding: 16px;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+.project-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.badge-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.badge-link:hover {
+  opacity: 0.8;
+}
+
+.badge-link img {
+  height: 20px;
+  display: block;
+}
+
 .guide-container {
   margin-bottom: 20px;
 }
@@ -247,7 +306,7 @@ const closeImageViewer = () => {
   color: #4b5563;
 }
 
-/* Item 3: Website */
+/* Item 3 & 4: Website & Cloud Print */
 .web-row {
   gap: 4px;
 }
