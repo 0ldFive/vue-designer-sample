@@ -1,7 +1,7 @@
 {
   "name": "vue-designer-sample",
   "private": true,
-  "version": "0.0.27",
+  "version": "0.0.28",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,7 @@
     "element-plus": "^2.13.2",
     "vue": "^3.5.25",
     "vue-i18n": "^11.2.8",
-    "vue-print-designer": "^1.0.39",
+    "vue-print-designer": "^1.0.51",
     "vue-router": "^5.0.3"
   },
   "devDependencies": {

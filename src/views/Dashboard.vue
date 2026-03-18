@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { ElImageViewer } from 'element-plus'
 import { ArrowRight, TopRight } from '@element-plus/icons-vue'
+import logoImg from '../assets/logo.png'
 import client1Img from '../assets/client1.png'
 import client2Img from '../assets/client2.png'
 import qqGroupImg from '../assets/qq_group.jpg'
@@ -46,7 +47,9 @@ const closeImageViewer = () => {
       </a>
     </div>
 
-    <div class="page-header"></div>
+    <div class="page-header">
+      <img :src="logoImg" class="dashboard-logo" alt="PrintDot Logo" />
+    </div>
 
     <el-card shadow="hover" class="guide-container">
       <div class="guide-content">
@@ -185,6 +188,18 @@ const closeImageViewer = () => {
   padding: 16px;
   background-color: #f5f7fa;
   min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.dashboard-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
 }
 
 .project-badges {

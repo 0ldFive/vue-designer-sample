@@ -2,11 +2,12 @@
 import { computed, ref, watch, provide, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { EditPen, Fold, HomeFilled, Expand, Grid, Moon, Sunny, Document, User, Lock, Key, Message, Loading } from '@element-plus/icons-vue'
+import { EditPen, Fold, HomeFilled, Expand, Moon, Sunny, Document, User, Lock, Key, Message, Loading } from '@element-plus/icons-vue'
 import { ElConfigProvider, ElMessage } from 'element-plus'
 // 导入语言包
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import en from 'element-plus/es/locale/lang/en'
+import logoImg from './assets/logo.png'
 
 const route = useRoute()
 const router = useRouter()
@@ -209,7 +210,9 @@ watch(
     <div v-if="!isAccessReady" class="star-gate-wrap">
       <el-card class="star-gate-card" shadow="never">
         <div class="star-gate-logo">
-          <div class="star-gate-logo-mark"><Grid /></div>
+          <div class="star-gate-logo-mark">
+            <img :src="logoImg" class="star-gate-logo-image" alt="PrintDot Logo" />
+          </div>
           <div class="star-gate-logo-texts">
             <h2 class="star-gate-title">{{ t('app.title') }}</h2>
             <p class="star-gate-subtitle">vue-print-designer 插件集成示例 SaaS 控制台</p>
@@ -256,8 +259,8 @@ watch(
         :class="{ collapsed: isCollapsed }"
       >
         <div class="brand">
-          <el-icon v-if="isCollapsed" class="brand-icon"><Grid /></el-icon>
-          <div v-else class="brand-title">{{ t('app.title') }}</div>
+          <img :src="logoImg" class="brand-logo" alt="PrintDot Logo" />
+          <div v-if="!isCollapsed" class="brand-title">{{ t('app.title') }}</div>
         </div>
         <el-menu
           :default-active="activeTab"
