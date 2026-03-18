@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { ElImageViewer } from 'element-plus'
 import { ArrowRight, TopRight } from '@element-plus/icons-vue'
-import logoImg from '../assets/logo.png'
 import client1Img from '../assets/client1.png'
 import client2Img from '../assets/client2.png'
 import qqGroupImg from '../assets/qq_group.jpg'
@@ -45,10 +44,6 @@ const closeImageViewer = () => {
       <a href="https://www.npmjs.com/package/vue-print-designer" target="_blank" class="badge-link">
         <img src="https://img.shields.io/npm/dm/vue-print-designer?style=flat-square&color=CB3837" alt="NPM Downloads" />
       </a>
-    </div>
-
-    <div class="page-header">
-      <img :src="logoImg" class="dashboard-logo" alt="PrintDot Logo" />
     </div>
 
     <el-card shadow="hover" class="guide-container">
@@ -188,18 +183,6 @@ const closeImageViewer = () => {
   padding: 16px;
   background-color: #f5f7fa;
   min-height: 100vh;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.dashboard-logo {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
 }
 
 .project-badges {
