@@ -7,7 +7,7 @@ let templates = JSON.parse(JSON.stringify(initialTemplates))
 let customElements = JSON.parse(JSON.stringify(initialElements))
 let userSettings = {
   theme: 'light',
-  locale: 'zh-cn',
+  locale: 'zh',
   isCollapsed: false
 }
 

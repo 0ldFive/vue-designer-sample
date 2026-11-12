@@ -4,9 +4,14 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { EditPen, Fold, HomeFilled, Expand, Moon, Sunny, Document, User, Lock, Key, Message, Loading } from '@element-plus/icons-vue'
 import { ElConfigProvider, ElMessage } from 'element-plus'
-// 导入语言包
+// 导入语言包（code 与内核一致：zh / zh-Hant / en / ja / ko / de）
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import zhTw from 'element-plus/es/locale/lang/zh-tw'
 import en from 'element-plus/es/locale/lang/en'
+import ja from 'element-plus/es/locale/lang/ja'
+import ko from 'element-plus/es/locale/lang/ko'
+import de from 'element-plus/es/locale/lang/de'
+import { SUPPORTED_LOCALES } from './i18n'
 import logoImg from './assets/logo.png'
 
 const route = useRoute()
@@ -15,12 +20,21 @@ const { t, locale } = useI18n()
 
 const isDark = ref(false)
 const isCollapsed = ref(false)
-const elementLocale = computed(() => (locale.value === 'zh-cn' ? zhCn : en))
+const elementLocaleMap = {
+  'zh': zhCn,
+  'zh-Hant': zhTw,
+  'en': en,
+  'ja': ja,
+  'ko': ko,
+  'de': de
+}
+const elementLocale = computed(() => elementLocaleMap[locale.value] || zhCn)
 const starAccessGranted = ref(false)
 const starAccessLoading = ref(false)
 const authTokenKey = 'printdot_auth_token'
 const authApiBase = (import.meta.env.VITE_AUTH_API_BASE || 'https://printdot.cc/api/auth').replace(/\/$/, '')
-const isAccessReady = computed(() => starAccessGranted.value)
+// 门禁（登录 + Star 检测）仅在简体中文下生效，其余语言直接放行
+const isAccessReady = computed(() => locale.value !== 'zh' || starAccessGranted.value)
 const loginForm = ref({
   account: '',
   password: '',
@@ -74,14 +88,24 @@ const handleGiteeLogin = () => {
 }
 
 onMounted(async () => {
+  // 等待首次路由解析完成，确保 hash 内的 ?lang= 已写入 route.query
+  await router.isReady()
+  // 语言优先级：URL query ?lang= > mock settings > 默认 zh
+  const urlLang = route.query.lang
+  const urlLangValid = typeof urlLang === 'string' && SUPPORTED_LOCALES.includes(urlLang)
+  let settings = null
   try {
     const res = await fetch(`${import.meta.env.BASE_URL}api/print/settings`)
-    const settings = await res.json()
+    settings = await res.json()
     isDark.value = settings.theme === 'dark'
-    locale.value = settings.locale
     isCollapsed.value = settings.isCollapsed || false
   } catch (err) {
     console.error('Failed to load settings from Mock API:', err)
+  }
+  if (urlLangValid) {
+    locale.value = urlLang
+  } else if (settings && SUPPORTED_LOCALES.includes(settings.locale)) {
+    locale.value = settings.locale
   }
   const query = new URLSearchParams(window.location.search)
   const token = query.get('token') || query.get('access_token')
@@ -98,7 +122,9 @@ onMounted(async () => {
     updateUrlAfterAuth()
     return
   }
-  await verifyStarAccess()
+  if (locale.value === 'zh') {
+    await verifyStarAccess()
+  }
 })
 
 provide('globalState', {
@@ -139,6 +165,10 @@ watch(isDark, async (val) => {
 }, { immediate: true })
 
 watch(locale, async (val) => {
+  // 同步语言到 URL query（不跳页）
+  if (route.query.lang !== val) {
+    router.replace({ query: { ...route.query, lang: val } })
+  }
   try {
     await fetch(`${import.meta.env.BASE_URL}api/print/settings`, {
       method: 'post',
@@ -147,6 +177,17 @@ watch(locale, async (val) => {
     })
   } catch (err) {
     console.error('Failed to save locale to Mock API:', err)
+  }
+  // 门禁仅在简体中文下执行；切回 zh 且未授权时重新走登录 + Star 检测
+  if (val === 'zh' && !starAccessGranted.value && !starAccessLoading.value) {
+    await verifyStarAccess()
+  }
+})
+
+// URL ?lang= 变化时同步语言（SPA 内 hash 导航 / 浏览器前进后退）
+watch(() => route.query.lang, (val) => {
+  if (typeof val === 'string' && SUPPORTED_LOCALES.includes(val) && val !== locale.value) {
+    locale.value = val
   }
 })
 
@@ -302,8 +343,12 @@ watch(
               class="theme-switch"
             />
             <el-select v-model="locale" class="lang-select">
-              <el-option :label="t('languages.zh')" value="zh-cn" />
+              <el-option :label="t('languages.zh')" value="zh" />
+              <el-option :label="t('languages.zhHant')" value="zh-Hant" />
               <el-option :label="t('languages.en')" value="en" />
+              <el-option :label="t('languages.ja')" value="ja" />
+              <el-option :label="t('languages.ko')" value="ko" />
+              <el-option :label="t('languages.de')" value="de" />
             </el-select>
           </div>
         </el-header>

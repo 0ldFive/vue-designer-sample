@@ -44,8 +44,7 @@ const handleReady = () => {
   // 初始化主题
   if (globalState) {
     el.setTheme?.(globalState.isDark.value ? 'dark' : 'light')
-    const lang = globalState.locale.value === 'zh-cn' ? 'zh' : 'en'
-    if (el.setLanguage) el.setLanguage(lang)
+    if (el.setLanguage) el.setLanguage(globalState.locale.value)
   }
 }
 
@@ -61,7 +60,7 @@ if (globalState) {
     console.log('[PrintDesigner] watch(locale)', val)
     const el = designerRef.value
     if (el?.setLanguage) {
-      el.setLanguage(val === 'zh-cn' ? 'zh' : 'en')
+      el.setLanguage(val)
     }
     el.setBranding?.({ title: t('app.designer'), showLogo: true })
   })

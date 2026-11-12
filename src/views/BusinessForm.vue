@@ -340,7 +340,7 @@ const setupBranding = () => {
   el.setBranding?.({ title: t('app.businessForm'), showLogo: true })
   if (globalState) {
     el.setTheme?.(globalState.isDark.value ? 'dark' : 'light')
-    el.setLanguage?.(globalState.locale.value === 'zh-cn' ? 'zh' : 'en')
+    el.setLanguage?.(globalState.locale.value)
   }
   applyPrintDefaults()
 }
