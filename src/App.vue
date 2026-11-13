@@ -11,7 +11,7 @@ import en from 'element-plus/es/locale/lang/en'
 import ja from 'element-plus/es/locale/lang/ja'
 import ko from 'element-plus/es/locale/lang/ko'
 import de from 'element-plus/es/locale/lang/de'
-import { SUPPORTED_LOCALES } from './i18n'
+import { SUPPORTED_LOCALES, detectBrowserLocale } from './i18n'
 import logoImg from './assets/logo.png'
 
 const route = useRoute()
@@ -106,6 +106,12 @@ onMounted(async () => {
     locale.value = urlLang
   } else if (settings && SUPPORTED_LOCALES.includes(settings.locale)) {
     locale.value = settings.locale
+  } else {
+    // 用户未选择过语言时，按浏览器语言环境自动匹配
+    const detected = detectBrowserLocale()
+    if (detected) {
+      locale.value = detected
+    }
   }
   const query = new URLSearchParams(window.location.search)
   const token = query.get('token') || query.get('access_token')

@@ -5,6 +5,27 @@ import { createI18n } from 'vue-i18n'
 export const SUPPORTED_LOCALES = ['zh', 'zh-Hant', 'en', 'ja', 'ko', 'de']
 export const DEFAULT_LOCALE = 'zh'
 
+// 从浏览器语言环境匹配支持的语言 code，无法匹配时返回 null
+export function detectBrowserLocale() {
+  const candidates = typeof navigator !== 'undefined'
+    ? [...(navigator.languages || []), navigator.language].filter(Boolean)
+    : []
+  for (const lang of candidates) {
+    const lower = String(lang).toLowerCase()
+    if (lower === 'zh' || lower.startsWith('zh-hans') || lower.startsWith('zh-cn') || lower.startsWith('zh-sg') || lower.startsWith('zh-my')) {
+      return 'zh'
+    }
+    if (lower.startsWith('zh-hant') || lower.startsWith('zh-tw') || lower.startsWith('zh-hk') || lower.startsWith('zh-mo')) {
+      return 'zh-Hant'
+    }
+    if (lower.startsWith('ja')) return 'ja'
+    if (lower.startsWith('ko')) return 'ko'
+    if (lower.startsWith('de')) return 'de'
+    if (lower.startsWith('en')) return 'en'
+  }
+  return null
+}
+
 const messages = {
   'zh': {
     app: {
